@@ -4,6 +4,10 @@ $(document).ready(function () {
 
     pastPresentFuture();
 
+
+
+
+
     function pastPresentFuture() {
         // get current hour
         const currentHour = moment().hours();
@@ -11,15 +15,22 @@ $(document).ready(function () {
         // target hour description
         const descriptions = $(".description");
 
-        // current time stored in description block
-        const currentBlock = $(descriptions[0]).attr("data-time");
+        // loop
+        $(descriptions).each(function (index, element) {
+            // current time stored in description block
+            const currentBlock = parseInt($(element).attr("data-time"));
 
-        // if statement check for time
-        if (currentBlock < currentHour) {
-            $(descriptions[0]).addClass("past");
-        } else if (currentBlock == currentHour) {
-            $(descriptions[0]).addClass("present");
-        }
+            // if statement check for time
+            if (currentBlock < currentHour) {
+                $(element).addClass("past");
+            } else if (currentBlock === currentHour) {
+                $(element).addClass("present");
+            } else {
+                $(element).addClass("future");
+            }
+        })
+
+
 
     }
 
