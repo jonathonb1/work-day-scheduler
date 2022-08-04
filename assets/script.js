@@ -1,15 +1,18 @@
 $(document).ready(function () {
 
-    getCurrentDay();
-
-    pastPresentFuture();
-
+    // grab local storage on page load
+    pageLoad();
 
 
+    function pageLoad() {
+        getCurrentDay();
+        pastPresentFuture();
+        getDescriptions();
+    }
 
 
+    // button clicks
     $(".saveBtn").on("click", function () {
-
         // get timeID from description
         const timeId = $(this).siblings(".description").attr("data-time");
         // get userInput text
@@ -19,15 +22,28 @@ $(document).ready(function () {
 
     })
 
+    // all functions
+    function getDescriptions() {
 
-    // timeblock check w/ colors and loop
+        // array of description elements
+        const descriptions = $(".description");
+
+        $(descriptions).each(function (i, element) {
+
+            // getting timeID to get data from local storage
+            const timeId = $(element).attr("data-time");
+            // get description by timeId tag
+            const description = localStorage.getItem(timeId);
+            // filling descripiton from local stoage
+            $(element).text(description);
+        });
+    }
+
     function pastPresentFuture() {
         // get current hour
         const currentHour = moment().hours();
-
         // target hour description
         const descriptions = $(".description");
-
         // loop
         $(descriptions).each(function (index, element) {
             // current time stored in description block
@@ -42,12 +58,7 @@ $(document).ready(function () {
                 $(element).addClass("future");
             }
         })
-
-
-
     }
-
-
 
     function getCurrentDay() {
 
@@ -56,9 +67,6 @@ $(document).ready(function () {
         // set text elemnt of current day
         $("#currentDay").text(currentDay);
     }
-
-
-
 })
 
 
