@@ -8,6 +8,19 @@ $(document).ready(function () {
 
 
 
+    $(".saveBtn").on("click", function () {
+
+        // get timeID from description
+        const timeId = $(this).siblings(".description").attr("data-time");
+        // get userInput text
+        const userInput = $(this).siblings(".description").val();
+        // set to local storage
+        localStorage.setItem(timeId, userInput);
+
+    })
+
+
+    // timeblock check w/ colors and loop
     function pastPresentFuture() {
         // get current hour
         const currentHour = moment().hours();
